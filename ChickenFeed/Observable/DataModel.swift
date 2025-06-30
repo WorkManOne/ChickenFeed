@@ -49,6 +49,7 @@ class DataModel: ObservableObject {
         } else {
             recipes = []
         }
+        CalculatorModel.shared.calculateFeeded(feedings: feedings)
         checkNotificationPermissions()
     }
 

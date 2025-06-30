@@ -21,6 +21,19 @@ struct ChickenFeedApp: App {
                     OnboardingView()
                         .environmentObject(userData)
                 }
+                .onAppear {
+                    calculator.calculateFeeded(feedings: userData.feedings)
+                    NotificationCenter.default.addObserver(
+                        forName: .NSCalendarDayChanged,
+                        object: nil,
+                        queue: .main
+                    ) { _ in
+                        calculator.calculateFeeded(feedings: userData.feedings)
+                    }
+                }
+                .onDisappear {
+                    NotificationCenter.default.removeObserver(self, name: .NSCalendarDayChanged, object: nil)
+                }
         }
     }
 }
